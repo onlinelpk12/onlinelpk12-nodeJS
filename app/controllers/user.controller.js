@@ -3,11 +3,11 @@ exports.allAccess = (req, res) => {
   };
   
   exports.studentBoard = (req, res) => {
-    res.status(200).send("Student Content.");
+    res.status(200).send(true);
   };
   
   exports.adminBoard = (req, res) => {
-    res.status(200).send("Admin Content.");
+    res.status(200).send(true);
   };
   
   exports.teacherBoard = (req, res) => {
