@@ -19,7 +19,7 @@ checkDuplicateUsernameOrEmail = (req, res, next) => {
     // Email
     User.findOne({
       where: {
-        email: req.body.email
+        email_id: req.body.email
       }
     }).then(user => {
       if (user) {
