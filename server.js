@@ -35,12 +35,7 @@ app.get("/", (req, res) => {
 // routes
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
-// var http=require('http');
-// http.createServer(function(req,res){
-//   var htmlcode="<form action='http://localhost:8085/OnlineLPK12/register.jsp'>"
-//   res.writeHead(200,{'Content-Type':'applicatio/json'});
-//   res.end(htmlcode);
-// }).listen
+
 // set port, listen for requests
 const PORT = process.env.PORT || 8083;
 app.listen(PORT, () => {

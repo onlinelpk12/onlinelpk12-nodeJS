@@ -13,13 +13,13 @@ module.exports = function(app) {
   app.get("/api/test/all", controller.allAccess);
 
   app.get(
-    "/api/test/user",
+    "/api/test/student",
     [authJwt.verifyToken],
     controller.studentBoard
   );
 
   app.get(
-    "/api/test/mod",
+    "/api/test/teacher",
     [authJwt.verifyToken, authJwt.isTeacher],
     controller.teacherBoard
   );
