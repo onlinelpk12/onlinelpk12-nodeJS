@@ -18,6 +18,10 @@ module.exports = (sequelize, Sequelize) => {
       },
       password: {
         type: Sequelize.STRING
+      },
+      is_active: {
+        type: Sequelize.BOOLEAN,
+        default: false,
       }
     },{
       freezeTableName: true
