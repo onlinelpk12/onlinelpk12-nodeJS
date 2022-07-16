@@ -1,11 +1,7 @@
-import cors from "cors"
-
 const { authJwt } = require("../middleware");
 const controller = require("../controllers/user.controller");
 
 module.exports = function(app) {
-  app.use(cors());
-
   app.use(function(req, res, next) {
     //res.header("Access-Control-Allow-Origin", "*")  //changes for CORS Issue
     res.header(
