@@ -1,8 +1,8 @@
 module.exports = {
-    HOST: "remotemysql.com",
-    USER: "q1CIkbrI1Q",
-    PASSWORD: "nmaQmrh1Gv",
-    DB: "q1CIkbrI1Q",
+    HOST: "sql.freedb.tech",
+    USER: "freedb_lpk12user",
+    PASSWORD: "k$NZPQDEwFG39b%",
+    DB: "freedb_onlinelpk12",
     dialect: "mysql",
     pool: {
       max: 10,
