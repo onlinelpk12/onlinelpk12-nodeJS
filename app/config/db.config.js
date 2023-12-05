@@ -1,8 +1,8 @@
 module.exports = {
-    HOST: "onlinelpk12db.mysql.database.azure.com",
-    USER: "AdminUser",
-    PASSWORD: "online@lpk12",
-    DB: "onlinelpk12ds",
+    HOST: "sql.freedb.tech",
+    USER: "freedb_lpk12user",
+    PASSWORD: "k$NZPQDEwFG39b%",
+    DB: "freedb_onlinelpk12",
     dialect: "mysql",
     pool: {
       max: 10,

@@ -3,11 +3,10 @@ const cors = require("cors");
 
 const app = express();
 
-var corsOptions = {
-  origin: "http://localhost:8085"
-};
-
-app.use(cors(corsOptions));
+app.use(cors({
+  origin:'*',
+  methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
+}));
 
 // parse requests of content-type - application/json
 app.use(express.json());
