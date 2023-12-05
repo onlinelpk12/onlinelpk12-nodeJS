@@ -95,3 +95,51 @@ exports.signin = (req, res) => {
       res.status(500).send({ message: err.message });
     });
 };
+
+exports.forgotPassword = (req, res) => {
+  User.findOne({
+
+    where: {
+
+      email_id: req.body.email_id
+
+    }
+
+  }).then(user => {
+
+    if (!user) {
+
+      return res.status(404).send({ message: "User Not found." });
+
+    }
+
+    console.log(user);
+
+    User.update({
+
+      password: bcrypt.hashSync(req.body.password, 8)
+
+    },
+
+    {where: {
+
+      email_id: req.body.email_id
+
+    }}
+
+    ).then(result => {
+
+      console.log(result);
+
+      res.send({
+
+        message: "User password updated successfully!"
+
+       });
+
+    })
+
+    
+
+  })
+};
