@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\app",
+    "\\app\\config",
+    "\\app\\controllers",
+    "\\app\\middleware",
+    "\\app\\models",
+    "\\app\\routes"
+  ],
+  "PreviewInSolutionExplorer": false
+}
