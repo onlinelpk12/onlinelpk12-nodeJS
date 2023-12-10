@@ -1,9 +1,22 @@
 const db = require("../models");
 const config = require("../config/auth.config");
+
 const User = db.user;
 const Role = db.role;
+const slideData = db.slide_data;
+const assessmentData = db.assessment_data;
+
+const multer = require("multer");
+var upload = multer({ dest: 'lessonFiles/'});
+var type = upload.single('file');
+
+
+const fs = require('fs');
+const base64 = require('base64-js');
 
 const Op = db.Sequelize.Op;
+
+
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
@@ -93,5 +106,110 @@ exports.signin = (req, res) => {
     })
     .catch(err => {
       res.status(500).send({ message: err.message });
+    });
+};
+
+
+exports.uploadLesson = (req, res) => {
+  const pdfBuffer = fs.readFileSync(req.file.path, {encoding : "base64"});
+  slideData.create({
+      course_name: req.body.course_name,
+      lesson_name: req.body.lesson_name,
+      pdf: pdfBuffer, // Access file content from req.file.buffer
+  })
+  .then(data => {
+      res.send({
+          message: "Lesson saved successfully!"
+      });
+  })
+  .catch(err => {
+      res.status(500).send({ message: err.message });
+  });
+};
+
+
+exports.getLesson = (req, res) => {
+  slideData.findOne({
+    where: {
+      course_name: req.body.course_name,
+      lesson_name: req.body.lesson_name
+    }
+  })
+  .then(lessonData => {
+     res.send({
+      course_name: lessonData.course_name,
+      lesson_name: lessonData.lesson_name,
+      pdf: lessonData.pdf,
+    });
+  })
+  .catch(err => {
+      res.status(500).send({ message: err.message });
+  });
+};
+
+
+exports.lessonsList = (req, res) => {
+  slideData.findAll({
+    attributes: ['lesson_name'],
+    where: {
+      course_name: req.body.course_name
+    }
+  })
+  .then(lessonData => {
+     res.send({
+      lessons: lessonData
+    });
+  })
+  .catch(err => {
+      res.status(500).send({ message: err.message });
+  });
+};
+
+exports.fetchAssessmentDetails = (req, res) => {
+  assessmentData.findOne({
+    where: {
+      course_name: req.body.course_name,
+      lesson_name: req.body.lesson_name
+    }
+  })
+  .then(assessmentData => {
+    if(assessmentData)
+    {res.send({
+      course_name: assessmentData.course_name,
+      lesson_name: assessmentData.lesson_name,
+      page_num: assessmentData.page_num,
+      header: assessmentData.header,
+      data: assessmentData.data,
+      questions: assessmentData.questions,
+      answers: assessmentData.answers,
+    });
+  }
+  else
+  {
+    res.send({});
+  }
+  })
+  .catch(err => {
+      res.status(500).send({ message: err.message });
+  });
+};
+
+exports.uploadAssessmentDetails = (req, res) => {
+    assessmentData.create({
+        course_name: req.body.course_name,
+        lesson_name: req.body.lesson_name,
+        page_num: req.body.page_num,
+        header: req.body.header,
+        data: req.body.data,
+        questions: req.body.questions,
+        answers: req.body.answers,
+    })
+    .then(data => {
+        res.send({
+            message: "assessment saved successfully!"
+        });
+    })
+    .catch(err => {
+        res.status(500).send({ message: err.message });
     });
 };
